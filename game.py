@@ -12,7 +12,8 @@ class Game:
 
     def __init__(self) -> None:
         self.GAME_OVER = False
-        self.game_windows = ...
+        self.game_windows = pygame.display.set_mode(
+            (CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT))
         clock = pygame.time.Clock()
         # Game Loop
         while not self.GAME_OVER:
