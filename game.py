@@ -11,6 +11,8 @@ class Game:
     pygame.display.set_caption(CONSTANTS.WINDOW_TITLE)
 
     def __init__(self) -> None:
+        self.snake = Snake()
+        self.food = Food()
         self.GAME_OVER = False
         self.game_windows = pygame.display.set_mode(
             (CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT))

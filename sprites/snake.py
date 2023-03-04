@@ -3,8 +3,9 @@ from helper.point import POINT
 import pygame
 
 
-class Segment:
+class Segment(pygame.sprite.Sprite):
     def __init__(self, position: POINT) -> None:
+        super().__init__()
         self.position = ...
         self.rect = ...
 
