@@ -11,6 +11,8 @@ class Game:
     pygame.display.set_caption(CONSTANTS.WINDOW_TITLE)
 
     def __init__(self) -> None:
+        self.events = []
+        self.steps = []
         self.snake = Snake()
         self.food = Food()
         self.GAME_OVER = False
@@ -21,39 +23,36 @@ class Game:
         self.clock = pygame.time.Clock()
         self.old_tick = 0
 
-        # game loop
+    # game loop
+    def run(self) -> None:
         while not self.GAME_OVER:
-            for event in pygame.event.get():
+            self.events = pygame.event.get()
+            for event in self.events:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
-                elif event.type == pygame.KEYDOWN:
-                    action = event.key
-                    match action:
-                        case pygame.K_w:
-                            self.snake.change_direction(Direction.UP)
-                        case pygame.K_s:
-                            self.snake.change_direction(Direction.DOWN)
-                        case pygame.K_a:
-                            self.snake.change_direction(Direction.LEFT)
-                        case pygame.K_d:
-                            self.snake.change_direction(Direction.RIGHT)
 
-            if self.snake.head.position == self.food.position:
-                self.snake.grow()
-                self.food.spawn()
+            self.update()
+            self.fixed_update()
 
-            self.fill_grid()
-            self.game_window.fill('black')
-            self.draw_grid()
-            ticks = pygame.time.get_ticks()
-            if ticks - self.old_tick > 100:
-                self.snake.move()
-                self.old_tick = ticks
+    def update(self) -> None:
+        self.clock.tick(CONSTANTS.FPS)
+        self.game_window.fill('black')
+        self.fill_grid()
+        self.draw_grid()
+        self._handle_input()
+        if self.snake.head.position == self.food.position:
+            self.snake.grow()
+            self.food.spawn()
+        pygame.display.update()
 
-            pygame.display.update()
-            self.clock.tick(60)
-            print(ticks)
+    def fixed_update(self):
+        ticks = pygame.time.get_ticks()
+        if ticks - self.old_tick > CONSTANTS.TIME_STEP:
+            if (self.steps):
+                self.snake.change_direction(self.steps.pop(0))
+            self.snake.move()
+            self.old_tick = ticks
 
     def fill_grid(self):
         self.grid = [[None for col in range(CONSTANTS.GRID_SIZE[1])] for row in range(
@@ -69,6 +68,20 @@ class Game:
                     self.game_window.blit(
                         cell.image, (cell.position.x*CONSTANTS.PIXEL_SIZE[0], cell.position.y*CONSTANTS.PIXEL_SIZE[1]))
 
+    def _handle_input(self):
+        for event in self.events:
+            if event.type == pygame.KEYDOWN:
+                action = event.key
+                match action:
+                    case pygame.K_w:
+                        self.steps.append(Direction.UP)
+                    case pygame.K_s:
+                        self.steps.append(Direction.DOWN)
+                    case pygame.K_a:
+                        self.steps.append(Direction.LEFT)
+                    case pygame.K_d:
+                        self.steps.append(Direction.RIGHT)
+
 
 if __name__ == '__main__':
-    Game()
+    Game().run()
