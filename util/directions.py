@@ -1,6 +1,3 @@
-import sys
-sys.path.append('util')
-from point import Point
 from util.point import Point
 
 

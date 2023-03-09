@@ -1,5 +1,3 @@
-import sys
-sys.path.append('../SnakeAI')
 from util.point import Point
 from util.constants import CONSTANTS
 from util.directions import Direction
