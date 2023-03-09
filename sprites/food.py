@@ -15,7 +15,4 @@ class Food(pygame.sprite.Sprite):
         self.spawn()
 
     def spawn(self) -> None:
-        self.position = Point(
-            random.randint(0, CONSTANTS.GRID_SIZE[0]-1),
-            random.randint(0, CONSTANTS.GRID_SIZE[1]-1),
-        )
+        self.position = Point.get_random_point()

@@ -16,7 +16,7 @@ class Segment(pygame.sprite.Sprite):
 
 class Snake:
     def __init__(self) -> None:
-        self.body = [Segment(Point(5, 5))]
+        self.body = [Segment(Point.get_random_point())]
         self.head = self.body[-1]
         self.direction = Direction.RIGHT
 

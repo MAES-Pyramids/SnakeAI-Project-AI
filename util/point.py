@@ -1,3 +1,7 @@
+import random
+from util.constants import CONSTANTS
+
+
 class Point:
 
     def __init__(self, x, y) -> None:
@@ -19,6 +23,13 @@ class Point:
     @y.setter
     def y(self, new_y):
         self._y = new_y
+
+    @staticmethod
+    def get_random_point() -> 'Point':
+        return Point(
+            random.randint(0, CONSTANTS.GRID_SIZE[0]-1),
+            random.randint(0, CONSTANTS.GRID_SIZE[1]-1),
+        )
 
     def __add__(self, other: 'Point') -> 'Point':
         return Point(
