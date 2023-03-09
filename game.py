@@ -48,6 +48,7 @@ class Game:
 
     def fixed_update(self):
         ticks = pygame.time.get_ticks()
+        # All code within this if statment run in fixed time TIME_STEP
         if ticks - self.old_tick > CONSTANTS.TIME_STEP:
             if (self.steps):
                 self.snake.change_direction(self.steps.pop(0))

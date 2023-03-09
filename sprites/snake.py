@@ -8,8 +8,8 @@ class Segment(pygame.sprite.Sprite):
     def __init__(self, position: Point) -> None:
         super().__init__()
 
-        self.image = pygame.Surface(CONSTANTS.PIXEL_SIZE)
-        self.image.fill('Green')
+        self.image = pygame.transform.smoothscale(pygame.image.load(
+            r"assets\images\segment.png").convert_alpha(), CONSTANTS.PIXEL_SIZE)
         self.rect = self.image.get_rect()
         self.position = position
 
