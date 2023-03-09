@@ -5,6 +5,7 @@ from util.directions import Direction
 from util.point import Point
 from sprites.food import Food
 from sprites.snake import Snake, Segment
+from sprites.wall import Wall
 
 
 class Game:
@@ -18,6 +19,7 @@ class Game:
         self.steps = []
         self.snake = Snake()
         self.food = Food()
+        self.wall = Wall()
         self.GAME_OVER = False
         self.grid = np.ndarray(CONSTANTS.GRID_SIZE, object)
         self.clock = pygame.time.Clock()
@@ -56,18 +58,19 @@ class Game:
             self.old_tick = ticks
 
     def fill_grid(self):
-        self.grid = [[None for col in range(CONSTANTS.GRID_SIZE[1])] for row in range(
-            CONSTANTS.GRID_SIZE[0])]
+        self.grid = np.ndarray(CONSTANTS.GRID_SIZE, object)
         for seg in self.snake.body:
-            self.grid[seg.position.x][seg.position.y] = seg
-        self.grid[self.food.position.x][self.food.position.y] = self.food
+            self.grid[seg.position.position] = seg
+        self.grid[self.food.position.position] = self.food
+        self.grid[:, 0:CONSTANTS.WALL_WIDTH] = self.grid[0:CONSTANTS.WALL_WIDTH, :] = self.grid[:, -
+                                                                                                CONSTANTS.WALL_WIDTH:] = self.grid[-CONSTANTS.WALL_WIDTH:, :] = self.wall
 
     def draw_grid(self):
-        for row in self.grid:
-            for cell in row:
-                if cell != None:
+        for row in range(len(self.grid)):
+            for cell in range(len(self.grid[row])):
+                if self.grid[row, cell] != None:
                     self.game_window.blit(
-                        cell.image, (cell.position.x*CONSTANTS.PIXEL_SIZE[0], cell.position.y*CONSTANTS.PIXEL_SIZE[1]))
+                        self.grid[row, cell].image, (row*CONSTANTS.PIXEL_SIZE[0], cell*CONSTANTS.PIXEL_SIZE[1]))
 
     def _handle_input(self):
         for event in self.events:

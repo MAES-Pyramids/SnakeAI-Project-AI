@@ -10,4 +10,3 @@ class Wall(pygame.sprite.Sprite):
         self.image = pygame.transform.smoothscale(pygame.image.load(
             r"assets\images\Wall.jpg"), CONSTANTS.PIXEL_SIZE)
         self.rect = self.image.get_rect()
-        self.position = Point(0, 0)
