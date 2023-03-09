@@ -1,38 +1,39 @@
 class Point:
 
     def __init__(self, x, y) -> None:
-        self.x = x
-        self.y = y
-        self.position = [self.x, self.y]
+        self._x = x
+        self._y = y
 
-    
+    @property
+    def x(self) -> None:
+        return self._x
 
-    def setX(self, x):
-        self.x = x
-        self.position[0] = x
-    
-    def setY(self, y):
-        self.y = y
-        self.position[1] = y
+    @x.setter
+    def x(self, new_x) -> None:
+        self._x = new_x
 
+    @property
+    def y(self, ) -> None:
+        return self._y
 
-    def  __add__(self, other):
+    @y.setter
+    def y(self, new_y):
+        self._y = new_y
+
+    def __add__(self, other: 'Point') -> 'Point':
         return Point(
             self.x + other.x,
             self.y + other.y
         )
-    
-    def  __mul__(self, val):
+
+    def __mul__(self, val: 'Point') -> 'Point':
         return Point(
-            self.x *val,
-            self.y *val
+            self.x * val,
+            self.y * val
         )
-    
-    def __eq__(self, other):
-        return self.position == other.position
+
+    def __eq__(self, other: 'Point') -> bool:
+        return (self.x, self.y) == (other.x, other.y)
 
     def __str__(self) -> str:
         return f"{self.x} : {self.y}"
-
-
-
