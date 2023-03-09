@@ -8,9 +8,9 @@ class Food(pygame.sprite.Sprite):
 
     def __init__(self) -> None:
         super().__init__()
-        self.image = pygame.Surface(CONSTANTS.PIXEL_SIZE)
+        self.image = pygame.transform.smoothscale(pygame.image.load(
+            r"assets\images\food.png"), CONSTANTS.PIXEL_SIZE)
         self.rect = self.image.get_rect()
-        self.image.fill('Red')
         self.position = Point(0, 0)
         self.spawn()
 
