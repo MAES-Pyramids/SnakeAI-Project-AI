@@ -1,14 +1,15 @@
 import sys
 sys.path.append('../SnakeAI')
+from util.constants import CONSTANTS
 from util.directions import Direction
 import pygame
-from util.constants import Constants
 from util.point import Point
 
 class Segment(pygame.sprite.Sprite):
     def __init__(self, point:Point) -> None:
         super().__init__()
-        self.image = pygame.Surface(Constants.PIXEL_SIZE)
+
+        self.image = pygame.Surface(CONSTANTS.PIXEL_SIZE)
         self.image.fill('Green')
         self.rect = self.image.get_rect()
         self.position = point

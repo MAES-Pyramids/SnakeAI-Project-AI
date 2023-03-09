@@ -1,5 +1,5 @@
 import pygame
-from util.constants import Constants
+from util.constants import CONSTANTS
 from util.directions import Direction
 from util.point import Point
 from sprites.food import Food
@@ -12,8 +12,10 @@ class Game:
         self.snake = Snake()
         self.food = Food()
         self.GAME_OVER = False
-        self.game_window = pygame.display.set_mode((Constants.WIDTH, Constants.HEIGHT))
-        self.grid = [[None for col in range(Constants.GRID_SIZE[1])] for row in range(Constants.GRID_SIZE[0])]
+        self.game_window = pygame.display.set_mode(
+            (CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT))
+        self.grid = [[None for col in range(CONSTANTS.GRID_SIZE[1])] for row in range(
+            CONSTANTS.GRID_SIZE[0])]
         self.clock = pygame.time.Clock()
         self.old_tick = 0
         
@@ -56,7 +58,8 @@ class Game:
 
         
     def fill_grid(self):
-        self.grid = [[None for col in range(Constants.GRID_SIZE[1])] for row in range(Constants.GRID_SIZE[0])]
+        self.grid = [[None for col in range(CONSTANTS.GRID_SIZE[1])] for row in range(
+            CONSTANTS.GRID_SIZE[0])]
         for seg in self.snake.body:
             self.grid[seg.position.x][seg.position.y] = seg
         self.grid[self.food.position.x][self.food.position.y] = self.food
@@ -64,8 +67,9 @@ class Game:
     def draw_grid(self):
         for row in self.grid:
             for cell in row:
-                if cell !=None:
-                    self.game_window.blit(cell.image, (cell.position.x*Constants.PIXEL_SIZE[0], cell.position.y*Constants.PIXEL_SIZE[1]))
+                if cell != None:
+                    self.game_window.blit(
+                        cell.image, (cell.position.x*CONSTANTS.PIXEL_SIZE[0], cell.position.y*CONSTANTS.PIXEL_SIZE[1]))
 
             
 
