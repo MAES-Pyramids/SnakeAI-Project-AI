@@ -1,4 +1,5 @@
 import pygame
+import numpy as np
 from util.constants import CONSTANTS
 from util.directions import Direction
 from util.point import Point
@@ -11,15 +12,14 @@ class Game:
     pygame.display.set_caption(CONSTANTS.WINDOW_TITLE)
 
     def __init__(self) -> None:
+        self.game_window = pygame.display.set_mode(
+            (CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT))
         self.events = []
         self.steps = []
         self.snake = Snake()
         self.food = Food()
         self.GAME_OVER = False
-        self.game_window = pygame.display.set_mode(
-            (CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT))
-        self.grid = [[None for col in range(CONSTANTS.GRID_SIZE[1])] for row in range(
-            CONSTANTS.GRID_SIZE[0])]
+        self.grid = np.ndarray(CONSTANTS.GRID_SIZE, object)
         self.clock = pygame.time.Clock()
         self.old_tick = 0
 
