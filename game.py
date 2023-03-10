@@ -32,6 +32,7 @@ class Game:
         self.play_music()
         self.old_tick = 0
 
+
     # game loop
     def run(self) -> None:
         while not self.GAME_OVER:
@@ -58,6 +59,8 @@ class Game:
             pygame.mixer.Sound(r"assets\sounds\eat.mp3").play()
             self.snake.grow()
             self.food.spawn()
+            if self.grid[self.food.position.x][self.food.position.y] is not None:
+                self.food.spawn()
 
         # Check if snake head is on the same position as any of the body segments
         if self.snake.length() >= 4 and self.snake.head.position in [seg.position for seg in self.snake.body[:-1]]: 
@@ -135,3 +138,4 @@ class Game:
 
 if __name__ == '__main__':
     Game().run()
+

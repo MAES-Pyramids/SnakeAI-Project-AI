@@ -23,9 +23,11 @@ class obstacles:
     
     def create_obstacle(self) -> None:
         obstacle_body = [brick(Point.get_random_point())]
-        lenght =  random.randint(1, 5)
+        lenght =  random.randint(1, 8)
+        random_direction = Direction.random_direction()
         for i in range(lenght):
-            random_direction = Direction.random_direction()
+            if i > 4:
+                random_direction = Direction.random_direction()
             new_segment = brick(obstacle_body[-1].position+random_direction)
             obstacle_body.append(new_segment)
         self.body += obstacle_body
