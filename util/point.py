@@ -27,8 +27,8 @@ class Point:
     @staticmethod
     def get_random_point() -> 'Point':
         return Point(
-            random.randint(0, CONSTANTS.GRID_SIZE[0]-1),
-            random.randint(0, CONSTANTS.GRID_SIZE[1]-1),
+            random.randint(1, CONSTANTS.GRID_SIZE[0]-1),
+            random.randint(1, CONSTANTS.GRID_SIZE[1]-1),
         )
 
     def __add__(self, other: 'Point') -> 'Point':

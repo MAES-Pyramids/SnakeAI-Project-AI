@@ -20,6 +20,9 @@ class Snake:
         self.head = self.body[-1]
         self.direction = Direction.RIGHT
 
+    def length(self) -> int:
+        return len(self.body)
+
     def change_direction(self, new_direction: Direction) -> None:
         if new_direction + self.direction != Point(0, 0):
             self.direction = new_direction
@@ -34,6 +37,7 @@ class Snake:
     def grow(self) -> None:
         new_segment = self.body[0]
         self.body.insert(0, new_segment)
+    
 
     def collides_with(self, other: object) -> bool:
         return self.head.rect.colliderect(other)
