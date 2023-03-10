@@ -1,10 +1,12 @@
 import pygame
+import time
 import numpy as np
 from util.constants import CONSTANTS
 from util.directions import Direction
 from util.point import Point
 from sprites.food import Food
 from sprites.snake import Snake, Segment
+from sprites.obstacles import obstacles, brick
 
 
 class Game:
@@ -19,6 +21,7 @@ class Game:
             (CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT))
         self.grid = np.ndarray(CONSTANTS.GRID_SIZE, object)
         self.clock = pygame.time.Clock()
+        self.obstacles = obstacles(CONSTANTS.NUM_OBSTACLES)
         self.snake = Snake()
         self.food = Food()
         self.events = []
@@ -59,6 +62,13 @@ class Game:
         # Check if snake head is on the same position as any of the body segments
         if self.snake.length() >= 4 and self.snake.head.position in [seg.position for seg in self.snake.body[:-1]]: 
             pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
+            time.sleep(1)
+            self.GAME_OVER = True
+
+        # Check if snake head is on the same position as any of the obstacles
+        if self.snake.head.position in [obstacle.position for obstacle in self.obstacles.body]:
+            pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
+            time.sleep(1)
             self.GAME_OVER = True
 
 
@@ -85,6 +95,11 @@ class Game:
             CONSTANTS.GRID_SIZE[0])]
         for seg in self.snake.body:
             self.grid[seg.position.x][seg.position.y] = seg
+
+        for brick in self.obstacles.body:
+            if brick.position.x < CONSTANTS.GRID_SIZE[0] and brick.position.y < CONSTANTS.GRID_SIZE[1]:
+                self.grid[brick.position.x][brick.position.y] = brick
+
         self.grid[self.food.position.x][self.food.position.y] = self.food
     # ----------------- Draw the game objects ------------------ #
     def draw_grid(self):

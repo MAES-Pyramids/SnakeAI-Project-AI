@@ -1,3 +1,4 @@
+import random
 from util.point import Point
 
 
@@ -9,3 +10,7 @@ class Direction:
 
     def __eq__(self, other: object) -> bool:
         return self == other
+    
+    def random_direction() -> Point:
+        directions = [Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT]
+        return random.choice(directions)
