@@ -7,13 +7,9 @@ from util.point import Point
 from sprites.food import Food
 from sprites.snake import Snake, Segment
 from sprites.obstacles import obstacles
+from sprites.wall import wall
 
-class wall:
-    def __init__(self, name, position):
-        self.name = name
-        self.position = position
-        self.image = pygame.transform.smoothscale(pygame.image.load(
-            r"assets\images\obstecal.png").convert_alpha(), CONSTANTS.PIXEL_SIZE)
+
 
 class Game:
     pygame.init()
@@ -30,6 +26,7 @@ class Game:
         self.obstacles = obstacles(CONSTANTS.NUM_OBSTACLES)
         self.snake = Snake()
         self.food = Food()
+        self.wall = wall()
         self.events = []
         self.steps = []
         self.background = pygame.image.load(r"assets\images\background.jpg")
@@ -100,12 +97,10 @@ class Game:
 
     # ------Create a 2D array to store the game objects------ #
     def fill_grid(self):
-        self.grid = [[None for col in range(CONSTANTS.GRID_SIZE[1])] for row in range(CONSTANTS.GRID_SIZE[0])]
-        
-        for row in range(CONSTANTS.GRID_SIZE[0]):
-            for col in range(CONSTANTS.GRID_SIZE[1]):
-                if row == 0 or row == CONSTANTS.GRID_SIZE[0] - 1 or col == 0 or col == CONSTANTS.GRID_SIZE[1] - 1:
-                    self.grid[row][col] = wall("wall", Point(row, col)) 
+        self.grid = [[None for col in range(CONSTANTS.GRID_SIZE[1])] for row in range(CONSTANTS.GRID_SIZE[0])] 
+
+        for brick in self.wall.body:
+            self.grid[brick.position.x][brick.position.y] = brick
         
         for seg in self.snake.body:
             self.grid[seg.position.x][seg.position.y] = seg
