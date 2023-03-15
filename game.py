@@ -77,6 +77,12 @@ class Game:
             time.sleep(1)
             self.GAME_OVER = True
 
+        # Check if snake head is on the same position as any of the wall
+        if self.snake.head.position in [brick.position for brick in self.wall.body]:
+            pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
+            time.sleep(1)
+            self.GAME_OVER = True
+
 
         
         pygame.display.update()
