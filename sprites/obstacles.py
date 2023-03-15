@@ -9,7 +9,7 @@ import random
 class brick(pygame.sprite.Sprite):
     def __init__(self, position: Point) -> None:
         super().__init__()
-
+        self.name = "brick"
         self.image = pygame.transform.smoothscale(pygame.image.load(
             r"assets\images\obstecal.png").convert_alpha(), CONSTANTS.PIXEL_SIZE)
         self.rect = self.image.get_rect()
@@ -23,7 +23,7 @@ class obstacles:
     
     def create_obstacle(self) -> None:
         obstacle_body = [brick(Point.get_random_point())]
-        lenght =  random.randint(1, 8)
+        lenght =  random.randint(1, CONSTANTS.Max_Obstacle_length)
         random_direction = Direction.random_direction()
         for i in range(lenght):
             if i > 4:
@@ -31,16 +31,3 @@ class obstacles:
             new_segment = brick(obstacle_body[-1].position+random_direction)
             obstacle_body.append(new_segment)
         self.body += obstacle_body
-
-
-# class obstacles:
-#     def __init__(self) -> None:
-#         self.body = [brick(Point.get_random_point())]
-#         self.grow()
-    
-#     def grow(self) -> None:
-#         lenght =  random.randint(1, 5)
-#         for i in range(lenght):
-#             random_direction = Direction.random_direction()
-#             new_segment = brick(self.body[-1].position+random_direction)
-#             self.body.append(new_segment)

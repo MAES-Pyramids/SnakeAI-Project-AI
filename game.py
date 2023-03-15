@@ -6,8 +6,14 @@ from util.directions import Direction
 from util.point import Point
 from sprites.food import Food
 from sprites.snake import Snake, Segment
-from sprites.obstacles import obstacles, brick
+from sprites.obstacles import obstacles
 
+class wall:
+    def __init__(self, name, position):
+        self.name = name
+        self.position = position
+        self.image = pygame.transform.smoothscale(pygame.image.load(
+            r"assets\images\obstecal.png").convert_alpha(), CONSTANTS.PIXEL_SIZE)
 
 class Game:
     pygame.init()
@@ -94,8 +100,13 @@ class Game:
 
     # ------Create a 2D array to store the game objects------ #
     def fill_grid(self):
-        self.grid = [[None for col in range(CONSTANTS.GRID_SIZE[1])] for row in range(
-            CONSTANTS.GRID_SIZE[0])]
+        self.grid = [[None for col in range(CONSTANTS.GRID_SIZE[1])] for row in range(CONSTANTS.GRID_SIZE[0])]
+        
+        for row in range(CONSTANTS.GRID_SIZE[0]):
+            for col in range(CONSTANTS.GRID_SIZE[1]):
+                if row == 0 or row == CONSTANTS.GRID_SIZE[0] - 1 or col == 0 or col == CONSTANTS.GRID_SIZE[1] - 1:
+                    self.grid[row][col] = wall("wall", Point(row, col)) 
+        
         for seg in self.snake.body:
             self.grid[seg.position.x][seg.position.y] = seg
 
@@ -111,6 +122,7 @@ class Game:
                 if cell != None:
                     self.game_window.blit(
                         cell.image, (cell.position.x*CONSTANTS.PIXEL_SIZE[0], cell.position.y*CONSTANTS.PIXEL_SIZE[1]))
+
                     
     # ------------------ Handle user input ------------------ #
     def _handle_input(self):
