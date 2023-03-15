@@ -3,7 +3,7 @@
 
 
 
-This is a university team project for an AI course. The aim of this project is to build a classic snake game with obstacles and food, and to develop it further by integrating some AI algorithms such as A* and DFS to make the snake reach its maximum possible size.
+This is a university team project for an AI course. The aim of this project is to build a classic snake game with obstacles and food, and then develop it further by integrating some AI algorithms such as A* and DFS to make the snake reach its maximum possible size.
 <br>
 
 We will be comparing  performance of the AI algorithms with a human player by calculating relation between length of the snake and the number of steps required to reach this length, then we will analyze the data to see if there are any trends that suggest one algorithm is suited more for the game.
