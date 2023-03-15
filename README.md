@@ -9,6 +9,10 @@ This is a university team project for an AI course. The aim of this project is t
 We will be comparing  performance of the AI algorithms with a human player by calculating relation between length of the snake and the number of steps required to reach this length, analyzing the data to see if there are any trends that suggest one algorithm is suited more for the game.
 
 ##  Documentation
+| Algorithm | Description |
+| --- | --- |
+| A* | A heuristic search algorithm that uses a cost function to guide its search. In this game, we use A* to find the shortest path from the snake's current position to the food. |
+| DFS | A search algorithm that explores as far as possible along each branch before backtracking. In this game, we use DFS to explore all possible paths to the food, and choose the path that results in the longest snake. |
 
 ## Requirements
 - Python 3.6 or higher
