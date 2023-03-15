@@ -15,7 +15,7 @@ We will be comparing  performance of the AI algorithms with a human player by ca
 - Pygame library
 
 ## Installation
-1. Clone the repository to your local machine using `git clone https://github.com/your-username/snake-game-ai.git`
+1. Clone the repo to your local machine using `git clone https://github.com/MAES-Pyramids/SnakeAI.git`
 2. Navigate to the project directory using `cd snake-game-ai`
 3. Install the required dependencies using `pip install -r requirements.txt`
 4. Run the game using `python main.py`
