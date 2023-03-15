@@ -1,12 +1,14 @@
 # Classic Snake Game AI Project
-<img align="right" alt="GIF" height="100%" src="https://camo.githubusercontent.com/0850a9b90bf720b08cafe764aea52d8cf2cc7048d4f8080297e8988b76bb08b8/68747470733a2f2f7265732e636c6f7564696e6172792e636f6d2f7375706572666f6c696f2f696d6167652f75706c6f61642f76313632303638393937392f36383734373437303733336132663266363932653730363936653639366436373265363336663664326636663732363936373639366536313663373332663633333632663333333332663633333232663633333633333333363333323330363536343635333833323636333036353330363336353634333736343335333733303634363236353333363133313636333332653637363936365f796a756832732e676966"  width="40%" /> 
+<img align="right" alt="GIF"  src="https://raw.githubusercontent.com/demartini/demartini/master/code.gif"  width="30%" /> 
 
-
+<!-- <img align="right" alt="GIF" height="100%" src="https://camo.githubusercontent.com/0850a9b90bf720b08cafe764aea52d8cf2cc7048d4f8080297e8988b76bb08b8/68747470733a2f2f7265732e636c6f7564696e6172792e636f6d2f7375706572666f6c696f2f696d6167652f75706c6f61642f76313632303638393937392f36383734373437303733336132663266363932653730363936653639366436373265363336663664326636663732363936373639366536313663373332663633333632663333333332663633333232663633333633333333363333323330363536343635333833323636333036353330363336353634333736343335333733303634363236353333363133313636333332653637363936365f796a756832732e676966"  width="40%" />  -->
 
 This is a university team project for an AI course. The aim of this project is to build a classic snake game with obstacles and food, and then develop it further by integrating some AI algorithms such as A* and DFS to make the snake reach its maximum possible size.
+
 <br>
 
-We will be comparing  performance of the AI algorithms with a human player by calculating relation between length of the snake and the number of steps required to reach this length, analyzing the data to see if there are any trends that suggest one algorithm is suited more for the game.
+To ensure an impartial evaluation, we will compare the effectiveness of the AI algorithms to that of a human player by measuring the correlation between the snake's length and the number of steps taken to achieve it. Additionally, we will analyze the collected data to identify any tendencies or insights that might indicate which algorithm is more suitable for the game. Finally, we will present our findings in a report that will be shared with our professor and classmates.
+
 
 ##  Documentation
 | Algorithm | Description |
@@ -42,3 +44,7 @@ We welcome contributions to this project. If you would like to contribute, pleas
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more information.
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=60&section=footer"  width="100%"/>
+</p>
