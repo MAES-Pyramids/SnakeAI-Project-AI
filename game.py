@@ -64,6 +64,7 @@ class Game:
             self.food.spawn()
             if self.grid[self.food.position.x][self.food.position.y] is not None:
                 self.food.spawn()
+  
 
         # Check if snake head is on the same position as any of the body segments
         if self.snake.length() >= 4 and self.snake.head.position in [seg.position for seg in self.snake.body[:-1]]: 
@@ -72,19 +73,21 @@ class Game:
             self.GAME_OVER = True
 
         # Check if snake head is on the same position as any of the obstacles
+        # if self.grid[self.snake.head.position.x][self.snake.head.position.y].name == "brick" : 
         if self.snake.head.position in [obstacle.position for obstacle in self.obstacles.body]:
             pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
             time.sleep(1)
             self.GAME_OVER = True
 
         # Check if snake head is on the same position as any of the wall
+        # if self.grid[self.snake.head.position.x][self.snake.head.position.y].name == "wall"  :
         if self.snake.head.position in [brick.position for brick in self.wall.body]:
             pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
             time.sleep(1)
             self.GAME_OVER = True
 
+      
 
-        
         pygame.display.update()
 
     def fixed_update(self):

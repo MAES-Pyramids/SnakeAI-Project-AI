@@ -3,12 +3,13 @@ from util.constants import CONSTANTS
 import pygame
 
 class brick(pygame.sprite.Sprite):
-    def __init__(self, position):
+    def __init__(self, position: Point) -> None:
+        super().__init__()
         self.name = "wall"
         self.image = pygame.transform.smoothscale(pygame.image.load(
             r"assets\images\obstecal.png").convert_alpha(), CONSTANTS.PIXEL_SIZE)
-        self.position = position
         self.rect = self.image.get_rect()
+        self.position = position
 
     
 
@@ -16,11 +17,12 @@ class brick(pygame.sprite.Sprite):
 class wall:
     def __init__(self) -> None:
         self.body = []
-        self.create_obstacle()
+        self.create_wall()
     
-    def create_obstacle(self) -> None:
+    def create_wall(self) -> None:
         for row in range(CONSTANTS.GRID_SIZE[0]):
           for col in range(CONSTANTS.GRID_SIZE[1]):
             if row == 0 or row == CONSTANTS.GRID_SIZE[0] - 1 or col == 0 or col == CONSTANTS.GRID_SIZE[1] - 1:
-              new_segment = brick(Point(row, col))
-              self.body.append(new_segment)
+              self.body.append(brick(Point(row, col)))
+
+
