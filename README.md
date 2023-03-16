@@ -37,7 +37,7 @@ We welcome contributions to this project. If you would like to contribute, pleas
 
 
 ## Team Members
- <img align="right" alt="GIF"  src="https://github.com/MAES-Pyramids/SnakeAI/blob/main/assets/documentations/chrome_KJaLpP8XXt.png"  width="45%" /> 
+ <img align="right" alt="GIF"  src="https://github.com/MAES-Pyramids/SnakeAI/blob/main/assets/documentations/chrome_KJaLpP8XXt.png"  width="40%" /> 
  
 #### Project done under supervision of  Prof. [@Sara El-Metwally](https://github.com/SaraEl-Metwally) by:
 - [@Muhammed Abdulaziz Mahmoud ](https://github.com/muhammed9865) | section 8
