@@ -9,9 +9,9 @@ import random
 class brick(GameObject):
     def __init__(self, position: Point) -> None:
         name = "brick"
-        image = pygame.transform.smoothscale(pygame.image.load(
-            r"assets\images\obstecal.png").convert_alpha(), CONSTANTS.PIXEL_SIZE)
+        image = pygame.Surface(CONSTANTS.PIXEL_SIZE)
         super().__init__(name, image, position)
+        self.image.fill("#FF005C")
 
 
 class obstacles:

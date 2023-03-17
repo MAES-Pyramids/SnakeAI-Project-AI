@@ -7,9 +7,9 @@ import pygame
 class Brick(GameObject):
     def __init__(self, position: Point) -> None:
         name = "wall"
-        image = pygame.transform.smoothscale(pygame.image.load(
-            r"assets\images\obstecal.png").convert_alpha(), CONSTANTS.PIXEL_SIZE)
+        image = pygame.Surface(CONSTANTS.PIXEL_SIZE)
         super().__init__(name, image, position)
+        image.fill("#FF005C")
 
 
 class Wall:
