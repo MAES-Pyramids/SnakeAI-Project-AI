@@ -37,5 +37,9 @@ class Snake:
         new_segment = self.body[0]
         self.body.insert(0, new_segment)
 
+    def draw(self, surf: pygame.Surface) -> None:
+        for seg in self.body:
+            seg.draw(surf)
+
     def collides_with(self, other: object) -> bool:
         return self.head.rect.colliderect(other)

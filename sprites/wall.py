@@ -22,3 +22,7 @@ class Wall:
             for col in range(CONSTANTS.GRID_SIZE[1]):
                 if row == 0 or row == CONSTANTS.GRID_SIZE[0] - 1 or col == 0 or col == CONSTANTS.GRID_SIZE[1] - 1:
                     self.body.append(Brick(Point(row, col)))
+
+    def draw(self, surf: pygame.Surface) -> None:
+        for brick in self.body:
+            brick.draw(surf)

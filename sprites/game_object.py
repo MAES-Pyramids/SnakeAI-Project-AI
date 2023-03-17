@@ -1,8 +1,7 @@
 from util.point import Point
 from util.constants import CONSTANTS
-from util.directions import Direction
 from pygame.sprite import Sprite
-import random
+import pygame
 
 
 class GameObject(Sprite):
@@ -12,3 +11,7 @@ class GameObject(Sprite):
         self.image = image
         self.rect = self.image.get_rect()
         self.position = position
+
+    def draw(self, surf: pygame.Surface) -> None:
+        surf.blit(self.image, (self.position.x * CONSTANTS.PIXEL_SIZE,
+                  self.position.y * CONSTANTS.PIXEL_SIZE))
