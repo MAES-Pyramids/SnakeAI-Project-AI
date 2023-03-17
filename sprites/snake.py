@@ -1,17 +1,16 @@
 from util.point import Point
 from util.constants import CONSTANTS
 from util.directions import Direction
+from sprites.game_object import GameObject
 import pygame
 
 
-class Segment(pygame.sprite.Sprite):
+class Segment(GameObject):
     def __init__(self, position: Point) -> None:
-        super().__init__()
-        self.name = "snake"
-        self.image = pygame.transform.smoothscale(pygame.image.load(
+        name = "snake"
+        image = pygame.transform.smoothscale(pygame.image.load(
             r"assets\images\segment.png").convert_alpha(), CONSTANTS.PIXEL_SIZE)
-        self.rect = self.image.get_rect()
-        self.position = position
+        super().__init__(name, image, position)
 
 
 class Snake:
@@ -37,7 +36,6 @@ class Snake:
     def grow(self) -> None:
         new_segment = self.body[0]
         self.body.insert(0, new_segment)
-    
 
     def collides_with(self, other: object) -> bool:
         return self.head.rect.colliderect(other)

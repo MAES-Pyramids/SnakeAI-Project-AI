@@ -1,15 +1,16 @@
 from util.point import Point
 from util.constants import CONSTANTS
+from sprites.game_object import GameObject
 import pygame
 
-class Food(pygame.sprite.Sprite):
+
+class Food(GameObject):
     def __init__(self) -> None:
-        super().__init__()
-        self.name = "snake"
-        self.image = pygame.transform.smoothscale(pygame.image.load(
+        name = "snake"
+        image = pygame.transform.smoothscale(pygame.image.load(
             r"assets\images\food.png"), CONSTANTS.PIXEL_SIZE)
-        self.rect = self.image.get_rect()
-        self.position = Point(0, 0)
+        position = Point(0, 0)
+        super().__init__(name, image, position)
         self.spawn()
 
     def spawn(self) -> None:
