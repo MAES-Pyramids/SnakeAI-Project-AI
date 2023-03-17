@@ -11,5 +11,5 @@ class CONSTANTS:
     TIME_STEP = default_STEP
 
     FPS = 60
-    NUM_OBSTACLES = 30  # 8
-    Max_Obstacle_length = 20  # 8
+    NUM_OBSTACLES = 10  # 8
+    Max_Obstacle_length = 3  # 8

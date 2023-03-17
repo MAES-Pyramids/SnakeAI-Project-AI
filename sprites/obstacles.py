@@ -14,19 +14,19 @@ class brick(GameObject):
         self.image.fill("#FF005C")
 
 
-class obstacles:
+class obstacles(pygame.sprite.Group):
     def __init__(self, num_obstacles: int = 1) -> None:
-        self.body = []
+        super().__init__()
         for i in range(num_obstacles):
             self.create_obstacle()
 
     def create_obstacle(self) -> None:
         obstacle_body = [brick(Point.get_random_point())]
-        lenght = random.randint(1, CONSTANTS.Max_Obstacle_length)
+        length = random.randint(1, CONSTANTS.Max_Obstacle_length)
         random_direction = Direction.random_direction()
-        for i in range(lenght):
+        for i in range(length):
             if i > 4:
                 random_direction = Direction.random_direction()
             new_segment = brick(obstacle_body[-1].position+random_direction)
             obstacle_body.append(new_segment)
-        self.body += obstacle_body
+        self.add(obstacle_body)

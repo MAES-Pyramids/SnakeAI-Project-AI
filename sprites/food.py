@@ -15,3 +15,4 @@ class Food(GameObject):
 
     def spawn(self) -> None:
         self.position = Point.get_random_point()
+        self.update_rect()

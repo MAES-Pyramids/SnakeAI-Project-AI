@@ -12,17 +12,13 @@ class Brick(GameObject):
         image.fill("#FF005C")
 
 
-class Wall:
+class Wall(pygame.sprite.Group):
     def __init__(self) -> None:
-        self.body = []
+        super().__init__()
         self.create_wall()
 
     def create_wall(self) -> None:
         for row in range(CONSTANTS.GRID_SIZE[0]):
             for col in range(CONSTANTS.GRID_SIZE[1]):
                 if row == 0 or row == CONSTANTS.GRID_SIZE[0] - 1 or col == 0 or col == CONSTANTS.GRID_SIZE[1] - 1:
-                    self.body.append(Brick(Point(row, col)))
-
-    def draw(self, surf: pygame.Surface) -> None:
-        for brick in self.body:
-            brick.draw(surf)
+                    self.add(Brick(Point(row, col)))

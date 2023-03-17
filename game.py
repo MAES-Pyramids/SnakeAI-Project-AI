@@ -9,6 +9,7 @@ from sprites.snake import Snake, Segment
 from sprites.obstacles import obstacles
 from sprites.wall import Wall
 from sprites.particle import Particle
+from sprites.game_object import GameObject
 
 
 class Game:
@@ -18,25 +19,22 @@ class Game:
     pygame.display.set_icon(pygame.image.load(r"assets\images\snake.png"))
 
     def __init__(self) -> None:
-        self.game_window = pygame.display.set_mode(
-            (CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT))
-        self.grid = np.ndarray(CONSTANTS.GRID_SIZE, object)
+        self.game_window = pygame.display.set_mode((CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT))
         self.clock = pygame.time.Clock()
         self.obstacles = obstacles(CONSTANTS.NUM_OBSTACLES)
         self.snake = Snake()
         self.food = Food()
         self.wall = Wall()
+        self.particles = Particle()
+        self.game_objects = [self.snake, self.food, self.wall, self.obstacles]
         self.events = []
         self.steps = []
-        self.background = pygame.Surface([CONSTANTS.PIXEL_SIZE]*2)
-        self.particles = Particle()
-
+        self.eated = False
         self.GAME_OVER = False
-        # self.play_music()
         self.old_tick = 0
+        # self.play_music()
 
     # game loop
-
     def run(self) -> None:
         while not self.GAME_OVER:
             self.events = pygame.event.get()
@@ -45,48 +43,17 @@ class Game:
                     pygame.quit()
                     exit()
 
-            self.update()
             self.fixed_update()
+            self.update()
 
     def update(self) -> None:
         self.clock.tick(CONSTANTS.FPS)
         self.game_window.fill('#0A1931')
-        # self.game_window.blit(self.background, (0, 0))
-        self.fill_grid()
-        self.draw_grid()
-        self.display_score()
+        self._draw_map()
+        self._display_score()
         self._handle_input()
         self.particles.emit(self.game_window, "#FFC947")
-
-        # Check if snake head is on the same position as food
-        if self.snake.head.position == self.food.position:
-            self.particles.add_particles(
-                self.food.position.x, self.food.position.y)
-            pygame.mixer.Sound(r"assets\sounds\eat.mp3").play()
-            self.snake.grow()
-            self.food.spawn()
-            if self.grid[self.food.position.x][self.food.position.y] is not None:
-                self.food.spawn()
-
-        # Check if snake head is on the same position as any of the body segments
-        if self.snake.length() >= 4 and self.snake.head.position in [seg.position for seg in self.snake.body[:-1]]:
-            # pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
-            self.GAME_OVER = True
-
-        # Check if snake head is on the same position as any of the obstacles
-        # if self.grid[self.snake.head.position.x][self.snake.head.position.y].name == "brick" :
-        # if self.snake.head.position in [obstacle.position for obstacle in self.obstacles.body]:
-        #     pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
-        #     time.sleep(1)
-        #     self.GAME_OVER = True
-
-        # Check if snake head is on the same position as any of the wall
-        # if self.grid[self.snake.head.position.x][self.snake.head.position.y].name == "wall"  :
-        if self.snake.head.position in [brick.position for brick in self.wall.body]:
-            # pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
-            # time.sleep(1)
-            self.GAME_OVER = True
-
+        self.check_collison()
         pygame.display.update()
 
     def fixed_update(self):
@@ -95,43 +62,50 @@ class Game:
         if ticks - self.old_tick > CONSTANTS.TIME_STEP:
             if (self.steps):
                 self.snake.change_direction(self.steps.pop(0))
-            self.snake.move()
+            self.snake.move(self.eated)
             self.old_tick = ticks
-    # -------------Display Score on the screen--------------- #
+            self.eated = False
 
-    def display_score(self):
+    # -------------Display Score on the screen--------------- #
+    def _display_score(self):
         font = pygame.font.SysFont('comicsans', 20, True)
         text = font.render(
-            f"Score: {self.snake.length() - 1}", True, (255, 255, 255))
+            f"Score: {len(self.snake) - 1}", True, (255, 255, 255))
         self.game_window.blit(text, (10, 10))
 
-    # ------Create a 2D array to store the game objects------ #
-    def fill_grid(self):
-        self.grid = [[None for col in range(CONSTANTS.GRID_SIZE[1])] for row in range(
-            CONSTANTS.GRID_SIZE[0])]
+    def check_collison(self):
+        # Check if snake head is on the same position as food
+        if self.snake.collides_with(self.food):
+            self.eated = True
+            self.particles.add_particles(
+                self.food.position.x, self.food.position.y)
+            pygame.mixer.Sound(r"assets\sounds\eat.mp3").play()
+            self.food.spawn()
 
-        for brick in self.wall.body:
-            self.grid[brick.position.x][brick.position.y] = brick
+        # Check if snake head is on the same position as any of the body segments
+        if self.snake.collides_with(self.snake):
+            pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
+            time.sleep(1)
+            self.GAME_OVER = True
 
-        for seg in self.snake.body:
-            self.grid[seg.position.x][seg.position.y] = seg
+        # Check if snake head is on the same position as any of the wall
+        if self.snake.collides_with(self.wall):
+            pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
+            time.sleep(1)
+            self.GAME_OVER = True
 
-        # for brick in self.obstacles.body:
-        #     if brick.position.x < CONSTANTS.GRID_SIZE[0] and brick.position.y < CONSTANTS.GRID_SIZE[1]:
-        #         self.grid[brick.position.x][brick.position.y] = brick
+        # Check if snake head is on the same position as any of the obstacles
+        if self.snake.collides_with(self.obstacles):
+            pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
+            time.sleep(1)
+            self.GAME_OVER = True
 
-        self.grid[self.food.position.x][self.food.position.y] = self.food
     # ----------------- Draw the game objects ------------------ #
-
-    def draw_grid(self):
-        for row in self.grid:
-            for cell in row:
-                if cell != None:
-                    self.game_window.blit(
-                        cell.image, (cell.position.x*CONSTANTS.PIXEL_SIZE, cell.position.y*CONSTANTS.PIXEL_SIZE))
+    def _draw_map(self):
+        for object in self.game_objects:
+            object.draw(self.game_window)
 
     # ------------------ Handle user input ------------------ #
-
     def _handle_input(self):
         for event in self.events:
             if event.type == pygame.KEYDOWN:
