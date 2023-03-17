@@ -31,6 +31,7 @@ class Game:
         self.steps = []
         self.eated = False
         self.GAME_OVER = False
+        self.RUSH = 0
         self.old_tick = 0
         # self.play_music()
 
@@ -109,7 +110,9 @@ class Game:
     def _handle_input(self):
         for event in self.events:
             if event.type == pygame.KEYDOWN:
-                CONSTANTS.TIME_STEP /= 1.8
+                self.RUSH += 1
+                if self.RUSH == 1:  # only speed up if there is at least one key pressed
+                    CONSTANTS.TIME_STEP /= 2
 
                 action = event.key
                 match action:
@@ -123,7 +126,9 @@ class Game:
                         self.steps.append(Direction.RIGHT)
 
             if event.type == pygame.KEYUP:
-                CONSTANTS.TIME_STEP = CONSTANTS.default_STEP
+                self.RUSH -= 1
+                if self.RUSH == 0:  # bring back the old speed if there is no pressed key
+                    CONSTANTS.TIME_STEP *= 2
 
     # -----------------Play Background music ---------------- #
 
