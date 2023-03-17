@@ -22,9 +22,9 @@ To ensure an impartial evaluation, we will compare the effectiveness of the AI a
 
 ## Installation
 1. Clone the repo to your local machine using `git clone https://github.com/MAES-Pyramids/SnakeAI.git`
-2. Navigate to the project directory using `cd snake-game-ai`
+2. Navigate to the project directory using `cd SnakeAI`
 3. Install the required dependencies using `pip install -r requirements.txt`
-4. Run the game using `python main.py`
+4. Run the game using `python game.py`
 
 ## Gameplay
 - Use the arrow keys to move the snake
