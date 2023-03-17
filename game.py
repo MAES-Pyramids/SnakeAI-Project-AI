@@ -8,6 +8,7 @@ from sprites.food import Food
 from sprites.snake import Snake, Segment
 from sprites.obstacles import obstacles
 from sprites.wall import Wall
+from sprites.particle import Particle
 
 
 class Game:
@@ -55,9 +56,12 @@ class Game:
         self.draw_grid()
         self.display_score()
         self._handle_input()
+        self.particles.emit(self.game_window, "#FFC947")
 
         # Check if snake head is on the same position as food
         if self.snake.head.position == self.food.position:
+            self.particles.add_particles(
+                self.food.position.x, self.food.position.y)
             pygame.mixer.Sound(r"assets\sounds\eat.mp3").play()
             self.snake.grow()
             self.food.spawn()
@@ -127,6 +131,7 @@ class Game:
                         cell.image, (cell.position.x*CONSTANTS.PIXEL_SIZE[0], cell.position.y*CONSTANTS.PIXEL_SIZE[1]))
 
     # ------------------ Handle user input ------------------ #
+
     def _handle_input(self):
         for event in self.events:
             if event.type == pygame.KEYDOWN:
