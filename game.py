@@ -28,7 +28,7 @@ class Game:
         self.wall = Wall()
         self.events = []
         self.steps = []
-        self.background = pygame.Surface(CONSTANTS.PIXEL_SIZE)
+        self.background = pygame.Surface([CONSTANTS.PIXEL_SIZE]*2)
         self.particles = Particle()
 
         self.GAME_OVER = False
@@ -128,7 +128,7 @@ class Game:
             for cell in row:
                 if cell != None:
                     self.game_window.blit(
-                        cell.image, (cell.position.x*CONSTANTS.PIXEL_SIZE[0], cell.position.y*CONSTANTS.PIXEL_SIZE[1]))
+                        cell.image, (cell.position.x*CONSTANTS.PIXEL_SIZE, cell.position.y*CONSTANTS.PIXEL_SIZE))
 
     # ------------------ Handle user input ------------------ #
 

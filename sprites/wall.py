@@ -7,7 +7,7 @@ import pygame
 class Brick(GameObject):
     def __init__(self, position: Point) -> None:
         name = "wall"
-        image = pygame.Surface(CONSTANTS.PIXEL_SIZE)
+        image = pygame.Surface([CONSTANTS.PIXEL_SIZE]*2)
         super().__init__(name, image, position)
         image.fill("#FF005C")
 

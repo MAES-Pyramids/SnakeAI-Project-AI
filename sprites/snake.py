@@ -9,7 +9,7 @@ class Segment(GameObject):
     def __init__(self, position: Point) -> None:
         name = "snake"
         image = pygame.transform.smoothscale(pygame.image.load(
-            r"assets\images\segment.png").convert_alpha(), CONSTANTS.PIXEL_SIZE)
+            r"assets\images\segment.png").convert_alpha(), [CONSTANTS.PIXEL_SIZE]*2)
         super().__init__(name, image, position)
 
 

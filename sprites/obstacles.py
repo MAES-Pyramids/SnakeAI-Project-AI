@@ -9,7 +9,7 @@ import random
 class brick(GameObject):
     def __init__(self, position: Point) -> None:
         name = "brick"
-        image = pygame.Surface(CONSTANTS.PIXEL_SIZE)
+        image = pygame.Surface([CONSTANTS.PIXEL_SIZE]*2)
         super().__init__(name, image, position)
         self.image.fill("#FF005C")
 

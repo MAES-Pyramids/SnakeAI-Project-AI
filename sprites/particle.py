@@ -20,8 +20,8 @@ class Particle:
 
     def add_particles(self, x, y):
         for i in range(10):
-            pos_x = x*CONSTANTS.PIXEL_SIZE[0]
-            pos_y = y*CONSTANTS.PIXEL_SIZE[1]
+            pos_x = x * CONSTANTS.PIXEL_SIZE
+            pos_y = y * CONSTANTS.PIXEL_SIZE
             radius = 6
             direction_x = random.randint(-1, 3)
             direction_y = random.randint(-3, 3)
