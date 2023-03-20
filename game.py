@@ -1,15 +1,17 @@
 import pygame
 import time
 import numpy as np
+from algorithms.BFS import BFS
 from util.constants import CONSTANTS
 from util.directions import Direction
 from util.point import Point
 from sprites.food import Food
 from sprites.snake import Snake, Segment
-from sprites.obstacles import obstacles
+from sprites.obstacles import Obstacles
 from sprites.wall import Wall
 from sprites.particle import Particle
 from sprites.game_object import GameObject
+from algorithms.state import State
 
 
 class Game:
@@ -21,12 +23,12 @@ class Game:
     def __init__(self) -> None:
         self.game_window = pygame.display.set_mode((CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT))
         self.clock = pygame.time.Clock()
-        self.obstacles = obstacles(CONSTANTS.NUM_OBSTACLES)
+        self.Obstacles = Obstacles(CONSTANTS.NUM_OBSTACLES)
         self.snake = Snake()
         self.food = Food()
         self.wall = Wall()
         self.particles = Particle()
-        self.game_objects = [self.snake, self.food, self.wall, self.obstacles]
+        self.game_objects = [self.snake, self.food, self.wall, self.Obstacles]
         self.events = []
         self.steps = []
         self.eated = False
@@ -95,8 +97,8 @@ class Game:
             time.sleep(1)
             self.GAME_OVER = True
 
-        # Check if snake head is on the same position as any of the obstacles
-        if self.snake.collides_with(self.obstacles):
+        # Check if snake head is on the same position as any of the Obstacles
+        if self.snake.collides_with(self.Obstacles):
             pygame.mixer.Sound(r"assets\sounds\crash.mp3").play()
             time.sleep(1)
             self.GAME_OVER = True
@@ -108,6 +110,7 @@ class Game:
 
     # ------------------ Handle user input ------------------ #
     def _handle_input(self):
+        self.steps.extend(BFS.find_path(State(self.snake, self.food, self.wall, self.Obstacles, [])))
         for event in self.events:
             if event.type == pygame.KEYDOWN:
                 self.RUSH += 1

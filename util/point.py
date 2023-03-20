@@ -48,3 +48,6 @@ class Point:
 
     def __str__(self) -> str:
         return f"{self.x} : {self.y}"
+
+    def __repr__(self) -> str:
+        return f"{self.x} : {self.y}"
