@@ -1,18 +1,18 @@
 from util.point import Point
 from util.constants import CONSTANTS
-from sprites.game_object import GameObject
+from .game_object import GameObject
+from .object_group import ObjectGroup
 import pygame
 
 
 class Brick(GameObject):
-    def __init__(self, position: Point) -> None:
-        name = "wall"
-        image = pygame.Surface([CONSTANTS.PIXEL_SIZE]*2)
-        super().__init__(name, image, position)
+    def __init__(self, position=Point(0, 0),
+                 image=pygame.Surface([CONSTANTS.PIXEL_SIZE]*2)) -> None:
+        super().__init__(position, image)
         image.fill("#FF005C")
 
 
-class Wall(pygame.sprite.Group):
+class Wall(ObjectGroup):
     def __init__(self) -> None:
         super().__init__()
         self.create_wall()

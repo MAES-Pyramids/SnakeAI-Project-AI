@@ -1,20 +1,21 @@
 from util.point import Point
 from util.constants import CONSTANTS
 from util.directions import Direction
-from sprites.game_object import GameObject
+from .game_object import GameObject
+from .object_group import ObjectGroup
 import pygame
 import random
 
 
 class Brick(GameObject):
-    def __init__(self, position: Point) -> None:
-        name = "Brick"
-        image = pygame.Surface([CONSTANTS.PIXEL_SIZE]*2)
-        super().__init__(name, image, position)
+    def __init__(self,
+                 position=Point(0, 0),
+                 image=pygame.Surface([CONSTANTS.PIXEL_SIZE]*2)) -> None:
+        super().__init__(position, image)
         self.image.fill("#FF005C")
 
 
-class Obstacles(pygame.sprite.Group):
+class Obstacles(ObjectGroup):
     def __init__(self, num_obstacles: int = 1) -> None:
         super().__init__()
         for i in range(num_obstacles):
@@ -29,4 +30,4 @@ class Obstacles(pygame.sprite.Group):
                 random_direction = Direction.random_direction()
             new_segment = Brick(obstacle_body[-1].position+random_direction)
             obstacle_body.append(new_segment)
-        self.add(obstacle_body)
+        self.add(*obstacle_body)

@@ -1,26 +1,25 @@
 from util.point import Point
 from util.constants import CONSTANTS
 from util.directions import Direction
-from sprites.game_object import GameObject
+from .game_object import GameObject
+from .object_group import ObjectGroup
 from copy import copy, deepcopy
 import pygame
 
 
 class Segment(GameObject):
     def __init__(self, position: Point) -> None:
-        name = "snake"
         image = pygame.transform.smoothscale(pygame.image.load(r"assets\images\segment.png").convert_alpha(), [CONSTANTS.PIXEL_SIZE]*2)
-        super().__init__(name, image, position)
+        super().__init__(position, image)
 
 
-class Snake(pygame.sprite.Group):
+class Snake(ObjectGroup):
 
     def __init__(self, sprites=[], direction=Direction.RIGHT) -> None:
-        super().__init__()
-        for sprite in sprites:
-            self.add(sprite)
-        self.add(Segment(Point(CONSTANTS.GRID_SIZE[0]//2, CONSTANTS.GRID_SIZE[1]//2)))
-        self.head = self.sprites()[-1]
+        super().__init__(sprites)
+        if len(self) == 0:
+            self.add(Segment(Point(CONSTANTS.GRID_SIZE[0]//2, CONSTANTS.GRID_SIZE[1]//2)))
+        self.head = self.sprites[-1]
         self.direction = direction
 
     def change_direction(self, new_direction: Direction) -> None:
@@ -33,14 +32,14 @@ class Snake(pygame.sprite.Group):
 
         self.add(new_segment)
         if not grow:
-            self.remove(self.sprites()[0])
+            self.remove(self.sprites[0])
 
     def collides_with(self, other) -> bool:
         if isinstance(other, GameObject):
             return self.head.position == other.position
-        elif isinstance(other, pygame.sprite.Group):
+        elif isinstance(other, ObjectGroup):
             collision = False
-            for sprite in other.sprites()[:-1]:
+            for sprite in other.sprites[:-1]:
                 if self.collides_with(sprite):
                     collision = True
             return collision

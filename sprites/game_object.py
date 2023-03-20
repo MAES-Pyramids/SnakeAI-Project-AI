@@ -5,9 +5,8 @@ import pygame
 
 
 class GameObject(Sprite):
-    def __init__(self, name: str, image: pygame.Surface, position: Point) -> None:
+    def __init__(self, position: Point,  image: pygame.Surface, ) -> None:
         super().__init__()
-        self.name = name
         self.image = image
         self.rect = self.image.get_rect()
         self.position = position
