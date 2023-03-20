@@ -12,9 +12,12 @@ class Food(GameObject):
         self.image.fill("#FFC947")
         self.spawn()
 
-    def spawn(self, obstacles = []) -> None:
+    def spawn(self, obstacles = [], snake = []) -> None:
         self.position = Point.get_random_point()
         for obstacle in obstacles:
             if self.position == obstacle.position:
                 self.spawn(obstacles=obstacles)
+        for brick in snake:
+            if self.position == brick.position:
+                self.spawn(obstacles=obstacles, snake=snake)
         self.update_rect()

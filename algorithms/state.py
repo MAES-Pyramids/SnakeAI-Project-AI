@@ -14,7 +14,7 @@ class State:
         self.path = path
 
     def __copy__(self):
-        return State(copy(self.snake), self.food, self.wall, self.obstacles, self.path[:])
+        return State(copy(self.snake), self.food, self.wall, copy(self.obstacles), self.path[:])
 
     def __eq__(self, other: 'State'):
         return self.snake.head.position == other.snake.head.position

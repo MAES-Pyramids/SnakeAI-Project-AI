@@ -83,7 +83,7 @@ class Game:
             self.particles.add_particles(
                 self.food.position.x, self.food.position.y)
             pygame.mixer.Sound(r"assets\sounds\eat.mp3").play()
-            self.food.spawn(self.Obstacles.sprites)
+            self.food.spawn(self.Obstacles.sprites, self.snake.sprites)
 
         # Check if snake head is on the same position as any of the body segments
         if self.snake.collides_with(self.snake):

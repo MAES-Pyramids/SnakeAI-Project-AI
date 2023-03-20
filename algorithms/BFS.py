@@ -4,13 +4,11 @@ from .state import State
 from queue import Queue
 from util.directions import Direction
 from copy import copy
-import numpy as np
 
 
 class BFS:
     frontier = Queue()
     visited = []
-    grid = np.zeros(CONSTANTS.GRID_SIZE)
 
     @staticmethod
     def find_path(state: State):
@@ -26,21 +24,20 @@ class BFS:
                 continue
 
             BFS.visited.append(current_state)
-
             BFS.get_neighbors(current_state)
-        else:
-            print("HIOII")
+        print("No path found")
+
 
     @staticmethod
     def get_neighbors(state: State):
         directions = [Direction.UP, Direction.DOWN, Direction.RIGHT, Direction.LEFT]
         for direction in directions:
-            if state.snake.direction + direction == Point(0, 0):
-                continue
+            # if state.snake.direction + direction == Point(0, 0):
+            #     continue
             new_state = copy(state)
             new_state.snake.change_direction(direction)
             new_state.snake.move()
-            if new_state.snake.collides_with(new_state.wall) or new_state.snake.collides_with(new_state.obstacles) or new_state.snake.collides_with(state.snake):
+            if new_state.snake.collides_with(new_state.wall)  or new_state.snake.collides_with(state.snake) or new_state.snake.collides_with(new_state.obstacles):
                 continue
             new_state.path.append(direction)
             BFS.frontier.put(new_state)
