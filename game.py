@@ -110,7 +110,8 @@ class Game:
 
     # ------------------ Handle user input ------------------ #
     def _handle_input(self):
-        self.steps.extend(BFS.find_path(State(self.snake, self.food, self.wall, self.Obstacles, [])))
+        if len(self.steps) == 0:
+            self.steps.extend(BFS.find_path(State(self.snake, self.food, self.wall, self.Obstacles, [])))
         for event in self.events:
             if event.type == pygame.KEYDOWN:
                 self.RUSH += 1

@@ -14,8 +14,10 @@ class BFS:
 
     @staticmethod
     def find_path(state: State):
+        BFS.frontier = Queue()
+        BFS.visited = []
         BFS.frontier.put(state)
-        while not BFS.frontier.empty():
+        while BFS.frontier.qsize():
             current_state = BFS.frontier.get()
             if current_state.snake.collides_with(current_state.food):
                 return current_state.path
@@ -25,8 +27,7 @@ class BFS:
             if current_state in BFS.visited:
                 continue
 
-            # print([k.snake.head.position for k in BFS.visited])
-            # print(BFS.grid.transpose(), end="\n \n")
+            print(BFS.grid.transpose(), end="\n \n")
             BFS.visited.append(current_state)
 
             BFS.get_neighbors(current_state)
