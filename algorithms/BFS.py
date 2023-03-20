@@ -22,12 +22,9 @@ class BFS:
             if current_state.snake.collides_with(current_state.food):
                 return current_state.path
 
-            BFS.grid[current_state.snake.head.position.x, current_state.snake.head.position.y] = 1
-
             if current_state in BFS.visited:
                 continue
 
-            print(BFS.grid.transpose(), end="\n \n")
             BFS.visited.append(current_state)
 
             BFS.get_neighbors(current_state)

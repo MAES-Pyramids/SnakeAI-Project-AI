@@ -3,7 +3,7 @@ class CONSTANTS:
     WINDOW_WIDTH = 800
     WINDOW_HEIGHT = 600
 
-    PIXEL_SIZE = 50
+    PIXEL_SIZE = 100
     GRID_SIZE = (WINDOW_WIDTH // PIXEL_SIZE, WINDOW_HEIGHT // PIXEL_SIZE)
 
     # Time step for fixed update
