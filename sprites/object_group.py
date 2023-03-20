@@ -21,7 +21,7 @@ class ObjectGroup:
             sprite.draw(surface)
 
     def __copy__(self) -> 'ObjectGroup':
-        cp = [copy(sprite) for sprite in self.sprites()]
+        cp = [copy(sprite) for sprite in self.sprites]
         return ObjectGroup(cp)
 
     def __len__(self) -> int:

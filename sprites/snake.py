@@ -45,5 +45,5 @@ class Snake(ObjectGroup):
             return collision
 
     def __copy__(self):
-        cp = [copy(sprite) for sprite in self.sprites()]
+        cp = [copy(sprite) for sprite in self.sprites]
         return Snake(cp, self.direction)
