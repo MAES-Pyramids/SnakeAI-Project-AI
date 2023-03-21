@@ -25,10 +25,11 @@ class Game:
         self.game_window = pygame.display.set_mode((CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT))
         self.clock = pygame.time.Clock()
         self.Obstacles = Obstacles(CONSTANTS.NUM_OBSTACLES)
+        self.particles = Particle()
         self.snake = Snake()
         self.food = Food()
         self.wall = Wall()
-        self.particles = Particle()
+        self.bfs = BFS()
         self.game_objects = [self.snake, self.food, self.wall, self.Obstacles]
         self.events = []
         self.steps = []
@@ -114,27 +115,9 @@ class Game:
         if len(self.steps) == 0:
             self.steps.extend(BFS.find_path(State(self.snake, self.food, self.wall, self.Obstacles, [])))
             
-            # ---Non clean code section by Dr/Eng/Mr/Antel ABO El-SEOUD---#
-            # bfs = BFS()
-            # direction_List = bfs.find_path(self.snake, self.food.position, self.wall, self.Obstacles)
-            # directions = []
-            # current_pos = direction_List[0]
-            # for pos in direction_List[1:]:
-            #     if pos.x == current_pos.x and pos.y > current_pos.y:
-            #         directions.append(Direction.DOWN)
-            #     elif pos.x == current_pos.x and pos.y < current_pos.y:
-            #         directions.append(Direction.UP)
-            #     elif pos.y == current_pos.y and pos.x > current_pos.x:
-            #         directions.append(Direction.RIGHT)
-            #     elif pos.y == current_pos.y and pos.x < current_pos.x:
-            #         directions.append(Direction.LEFT)
-            #     current_pos = pos
-            # for direction in directions:
+            # direction_List = self.bfs.find_path(self.snake, self.food.position, self.wall, self.Obstacles)
+            # for direction in direction_List:
             #     self.steps.append(direction)
-
-
-
-
 
         for event in self.events:
             if event.type == pygame.KEYDOWN:
