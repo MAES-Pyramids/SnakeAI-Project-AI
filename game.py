@@ -2,7 +2,7 @@ import pygame
 import time
 import numpy as np
 from algorithms.BFS import BFS
-# from algorithms.BFS_Point import BFS
+from algorithms.BFS_Point import BFS_Point
 from util.constants import CONSTANTS
 from util.directions import Direction
 from util.point import Point
@@ -25,11 +25,11 @@ class Game:
         self.game_window = pygame.display.set_mode((CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT))
         self.clock = pygame.time.Clock()
         self.Obstacles = Obstacles(CONSTANTS.NUM_OBSTACLES)
+        self.bfs_Point = BFS_Point()
         self.particles = Particle()
         self.snake = Snake()
         self.food = Food()
         self.wall = Wall()
-        self.bfs = BFS()
         self.game_objects = [self.snake, self.food, self.wall, self.Obstacles]
         self.events = []
         self.steps = []
@@ -113,11 +113,11 @@ class Game:
     # ------------------ Handle user input ------------------ #
     def _handle_input(self):
         if len(self.steps) == 0:
-            self.steps.extend(BFS.find_path(State(self.snake, self.food, self.wall, self.Obstacles, [])))
+            # self.steps.extend(BFS.find_path(State(self.snake, self.food, self.wall, self.Obstacles, [])))
             
-            # direction_List = self.bfs.find_path(self.snake, self.food.position, self.wall, self.Obstacles)
-            # for direction in direction_List:
-            #     self.steps.append(direction)
+            direction_List = self.bfs_Point.find_path(self.snake, self.food.position, self.wall, self.Obstacles)
+            for direction in direction_List:
+                self.steps.append(direction)
 
         for event in self.events:
             if event.type == pygame.KEYDOWN:

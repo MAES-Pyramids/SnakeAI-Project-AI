@@ -6,7 +6,7 @@ from sprites.snake import Snake
 from sprites.wall import Wall
 from queue import Queue
 
-class BFS:
+class BFS_Point:
     def __init__(self):
         self.visited = set()
         self.our_queue = Queue()
@@ -14,6 +14,7 @@ class BFS:
     def find_path(self, snake: Snake, food_position: Point, wall: Wall, obstacles: Obstacles):
         snake_position = snake.head.position
         self.visited.clear()
+        
         self.our_queue = Queue()
         self.our_queue.put([snake_position])
 

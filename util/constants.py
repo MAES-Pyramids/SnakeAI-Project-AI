@@ -3,12 +3,12 @@ class CONSTANTS:
     WINDOW_WIDTH = 800
     WINDOW_HEIGHT = 600
 
-    PIXEL_SIZE = 30
+    PIXEL_SIZE = 25
     GRID_SIZE = (WINDOW_WIDTH // PIXEL_SIZE, WINDOW_HEIGHT // PIXEL_SIZE)
 
     # Time step for fixed update
     TIME_STEP = 110
 
     FPS = 60
-    NUM_OBSTACLES = 10
+    NUM_OBSTACLES = 15
     Max_Obstacle_length = 3
