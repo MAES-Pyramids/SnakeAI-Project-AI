@@ -2,6 +2,7 @@ import pygame
 import time
 import numpy as np
 from algorithms.BFS import BFS
+# from algorithms.BFS_Point import BFS
 from util.constants import CONSTANTS
 from util.directions import Direction
 from util.point import Point
@@ -112,6 +113,29 @@ class Game:
     def _handle_input(self):
         if len(self.steps) == 0:
             self.steps.extend(BFS.find_path(State(self.snake, self.food, self.wall, self.Obstacles, [])))
+            
+            #  ABO El-SEOUD Non clean code section
+            # bfs = BFS()
+            # direction_List = bfs.find_path(self.snake.head.position, self.food.position)
+            # directions = []
+            # current_pos = direction_List[0]
+            # for pos in direction_List[1:]:
+            #     if pos.x == current_pos.x and pos.y > current_pos.y:
+            #         directions.append(Direction.DOWN)
+            #     elif pos.x == current_pos.x and pos.y < current_pos.y:
+            #         directions.append(Direction.UP)
+            #     elif pos.y == current_pos.y and pos.x > current_pos.x:
+            #         directions.append(Direction.RIGHT)
+            #     elif pos.y == current_pos.y and pos.x < current_pos.x:
+            #         directions.append(Direction.LEFT)
+            #     current_pos = pos
+            # for direction in directions:
+            #     self.steps.append(direction)
+
+
+
+
+
         for event in self.events:
             if event.type == pygame.KEYDOWN:
                 self.RUSH += 1
@@ -140,6 +164,7 @@ class Game:
         pygame.mixer.music.load(r"assets\sounds\background.mp3")
         pygame.mixer.music.play()
 
+    #---------------------------------------------------------#
 
 if __name__ == '__main__':
     Game().run()

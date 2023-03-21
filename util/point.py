@@ -50,3 +50,6 @@ class Point:
 
     def __repr__(self) -> str:
         return f"{self.x} : {self.y}"
+    
+    def __hash__(self):
+        return hash((self.x, self.y))
