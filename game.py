@@ -114,9 +114,9 @@ class Game:
         if len(self.steps) == 0:
             self.steps.extend(BFS.find_path(State(self.snake, self.food, self.wall, self.Obstacles, [])))
             
-            #  ABO El-SEOUD Non clean code section
+            # ---Non clean code section by Dr/Eng/Mr/Antel ABO El-SEOUD---#
             # bfs = BFS()
-            # direction_List = bfs.find_path(self.snake.head.position, self.food.position)
+            # direction_List = bfs.find_path(self.snake, self.food.position, self.wall, self.Obstacles)
             # directions = []
             # current_pos = direction_List[0]
             # for pos in direction_List[1:]:

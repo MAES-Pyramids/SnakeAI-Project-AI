@@ -1,7 +1,10 @@
 from util.point import Point
-from queue import Queue
 from util.directions import Direction
-from util.constants import CONSTANTS
+from sprites.obstacles import Obstacles
+from sprites.snake import Snake
+from sprites.wall import Wall
+
+from queue import Queue
 
 
 class BFS:
@@ -9,7 +12,8 @@ class BFS:
         self.visited = set()
         self.our_queue = Queue()
 
-    def find_path(self, snake_position: Point, food_position: Point):
+    def find_path(self, snake: Snake, food_position: Point, wall: Wall, obstacles: Obstacles):
+        snake_position = snake.head.position
         self.visited = set()
         self.our_queue = Queue()
         self.our_queue.put([snake_position])
@@ -25,11 +29,11 @@ class BFS:
                 continue
 
             self.visited.add(current_position)
-            self.get_neighbors(current_position, current_path)
+            self.get_neighbors(current_position, current_path,snake ,wall, obstacles)
 
         print("No path found")
 
-    def get_neighbors(self, current_position: Point, current_path: list):
+    def get_neighbors(self, current_position: Point, current_path: list,snake:Snake ,wall: Wall, obstacles: Obstacles):
         directions = [Direction.UP, Direction.DOWN, Direction.RIGHT, Direction.LEFT]
 
         for direction in directions:
@@ -44,15 +48,21 @@ class BFS:
             else:
                 continue
 
-            # Check if new_position is outside the boundaries of the game board
-            if new_position.x < 0 or new_position.y < 0:
-                continue
-            if new_position.x >= 800 or new_position.y >= 600:
-                continue
-
             # Check if new_position is already in the current path or visited set
             if new_position in current_path or new_position in self.visited:
                 continue
+            
+            # Check if new_position is outside the boundaries of the game board
+            # if snake.collides_with(wall.sprites):
+            #     continue
+            
+            # Check if new_position is inside the obstacles
+            # if snake.collides_with(obstacles.sprites):
+            #     continue
+            
+            # Check if new_position is inside the snake
+            # if new_position in snake.sprites:
+            #     continue
 
             self.our_queue.put(current_path + [new_position])
 
