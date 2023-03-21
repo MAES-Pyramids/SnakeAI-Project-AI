@@ -11,6 +11,7 @@ To ensure an impartial evaluation, we will compare the effectiveness of the AI a
 
 
 ##  Documentation
+
 | Algorithm | Description |
 | --- | --- |
 | A* | A heuristic search algorithm that uses a cost function to guide its search. In this game, we use A* to find the shortest path from the snake's current position to the food. |
@@ -27,6 +28,8 @@ To ensure an impartial evaluation, we will compare the effectiveness of the AI a
 4. Run the game using `python game.py`
 
 ## Gameplay
+<img align="right"  alt="GIF" height="100%" src="https://github.com/MAES-Pyramids/SnakeAI/blob/main/assets/documentations/python_YVrdgT1uwX.gif"  width="20%" />
+
 - Use the arrow keys to move the snake
 - Collect the food to grow longer
 - Avoid hitting the obstacles and the snake's own body
