@@ -34,6 +34,13 @@ class Snake(ObjectGroup):
         if not grow:
             self.remove(self.sprites[0])
 
+    def draw(self, surface: pygame.Surface) -> None:
+        for sprite in self.sprites:
+            if sprite == self.head:
+                pygame.draw.rect(surface, "Green", pygame.Rect(self.head.position.x*CONSTANTS.PIXEL_SIZE, self.head.position.y*CONSTANTS.PIXEL_SIZE, CONSTANTS.PIXEL_SIZE, CONSTANTS.PIXEL_SIZE))
+            else:
+                sprite.draw(surface)
+
     def collides_with(self, other) -> bool:
         if isinstance(other, GameObject):
             return self.head.position == other.position
