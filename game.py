@@ -113,11 +113,9 @@ class Game:
     # ------------------ Handle user input ------------------ #
     def _handle_input(self):
         if len(self.steps) == 0:
-            # self.steps.extend(BFS.find_path(State(self.snake, self.food, self.wall, self.Obstacles, [])))
-            
-            direction_List = self.bfs_Point.find_path(self.snake, self.food.position, self.wall, self.Obstacles)
-            for direction in direction_List:
-                self.steps.append(direction)
+            a = BFS(State(self.snake), self.food, self.wall, self.Obstacles).find_path()
+            # b = self.bfs_Point.find_path(self.snake, self.food.position, self.wall, self.Obstacles)
+            self.steps.extend(a)
 
         for event in self.events:
             if event.type == pygame.KEYDOWN:
@@ -147,7 +145,8 @@ class Game:
         pygame.mixer.music.load(r"assets\sounds\background.mp3")
         pygame.mixer.music.play()
 
-    #---------------------------------------------------------#
+    # ---------------------------------------------------------#
+
 
 if __name__ == '__main__':
     Game().run()

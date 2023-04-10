@@ -3,18 +3,24 @@ from sprites.food import Food
 from sprites.snake import Snake
 from sprites.obstacles import Obstacles
 from sprites.wall import Wall
+from util.point import Point
 
 
 class State:
-    def __init__(self, snake: Snake, food: Food, wall: Wall, obstacles: Obstacles, path) -> None:
-        self.snake = snake
-        self.food = food
-        self.wall = wall
-        self.obstacles = obstacles
-        self.path = path
+    def __init__(self, snake, parent: 'State' = None, direction=None) -> None:
+        if isinstance(snake, Snake):
+            self.body = self.get_snake_body(snake)
+        else:
+            self.body = snake
+        self.head = self.body[-1]
+        self.parent = parent
+        self.direction = direction
 
-    def __copy__(self):
-        return State(copy(self.snake), self.food, self.wall, copy(self.obstacles), self.path[:])
+    def get_snake_body(self, snake: Snake):
+        return [sprite.position for sprite in snake.sprites]
+
+    def __hash__(self) -> int:
+        return hash(self.head)
 
     def __eq__(self, other: 'State'):
-        return self.snake.head.position == other.snake.head.position
+        return self.head == other.head

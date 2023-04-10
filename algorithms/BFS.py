@@ -1,43 +1,50 @@
-from util.constants import CONSTANTS
-from util.point import Point
+from sprites.food import Food
+from sprites.obstacles import Obstacles
+from sprites.wall import Wall
 from .state import State
 from queue import Queue
 from util.directions import Direction
-from copy import copy
 
 
 class BFS:
-    frontier = Queue()
-    visited = []
+    def __init__(self, state: State, food: Food, wall: Wall, obstacles: Obstacles) -> None:
+        self.state = state
+        self.food = food
+        self.wall = wall
+        self.obstacles = obstacles
+        self.frontier = Queue()
+        self.visited = set()
 
-    @staticmethod
-    def find_path(state: State):
-        BFS.frontier = Queue()
-        BFS.visited = []
-        BFS.frontier.put(state)
-        while BFS.frontier.qsize():
-            current_state = BFS.frontier.get()
-            if current_state.snake.collides_with(current_state.food):
-                return current_state.path
+    def find_path(self):
+        self.frontier.put(self.state)
+        self.visited.add(self.state.head)
 
-            if current_state in BFS.visited:
-                continue
+        while self.frontier.qsize():
+            current_state = self.frontier.get()
+            if current_state.head == self.food.position:
+                return self.get_path(current_state)
 
-            BFS.visited.append(current_state)
-            BFS.get_neighbors(current_state)
-        print("No path found")
+            self.get_neighbors(current_state)
+        else:
+            print("No path found")
 
-
-    @staticmethod
-    def get_neighbors(state: State):
+    def get_neighbors(self, state: State):
         directions = [Direction.UP, Direction.DOWN, Direction.RIGHT, Direction.LEFT]
-        for direction in directions:
-            # if state.snake.direction + direction == Point(0, 0):
-            #     continue
-            new_state = copy(state)
-            new_state.snake.change_direction(direction)
-            new_state.snake.move()
-            if new_state.snake.collides_with(new_state.wall)  or new_state.snake.collides_with(state.snake) or new_state.snake.collides_with(new_state.obstacles):
-                continue
-            new_state.path.append(direction)
-            BFS.frontier.put(new_state)
+        for dir in directions:
+            new_head = state.head + dir
+            if new_head not in self.visited and not self.check_collision(new_head, state):
+                self.visited.add(new_head)
+                new_state = State(state.body[1:]+[new_head], state, dir)
+                self.frontier.put(new_state)
+
+    def get_path(self, goal_state: State):
+        path = []
+        current = goal_state
+        while current.parent:
+            path.append(current.direction)
+            current = current.parent
+        path.reverse()
+        return path
+
+    def check_collision(self, head, state: State):
+        return any(head == sprite.position for sprite in self.wall.sprites+self.obstacles.sprites) or any(head == seg for seg in state.body)
