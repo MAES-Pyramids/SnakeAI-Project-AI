@@ -3,11 +3,8 @@ from .game_object import GameObject
 
 
 class ObjectGroup:
-    def __init__(self, sprites=None) -> None:
-        if sprites == None:
-            self.sprites = []
-        else:
-            self.sprites = sprites[:]
+    def __init__(self, sprites=[]) -> None:
+        self.sprites = sprites[:]
 
     def add(self, *sprites: GameObject) -> None:
         for sprite in sprites:
