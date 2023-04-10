@@ -44,13 +44,15 @@ class Snake(ObjectGroup):
     def collides_with(self, other) -> bool:
         if isinstance(other, GameObject):
             return self.head.position == other.position
-        elif isinstance(other, ObjectGroup):
+        elif isinstance(other, Snake):
             collision = False
             for sprite in other.sprites[:-1]:
                 if self.collides_with(sprite):
                     collision = True
             return collision
-
-    def __copy__(self):
-        cp = [copy(sprite) for sprite in self.sprites]
-        return Snake(cp, self.direction)
+        elif isinstance(other, ObjectGroup):
+            collision = False
+            for sprite in other.sprites:
+                if self.collides_with(sprite):
+                    collision = True
+            return collision
